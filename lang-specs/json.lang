@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="json" _name="JSON" version="2.0" _section="Sources">
+  <metadata>
+    <property name="mimetypes">application/json</property>
+    <property name="globs">*.json</property>
+  </metadata>
+  <styles>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="escaped-character" _name="Escaped Character" map-to="def:special-char"/>
+    <style id="number" _name="Number" map-to="def:number"/>
+    <style id="boolean" _name="Boolean" map-to="def:boolean"/>
+    <style id="null" _name="Null" map-to="def:special-constant"/>
+    <style id="key" _name="Key" map-to="def:type"/>
+  </styles>
+  <definitions>
+    <context id="json">
+      <include>
+        <context id="array">
+          <start>\[</start>
+          <end>\]</end>
+          <include>
+            <context id="value">
+              <include>
+                <context ref="array"/>
+                <context ref="object"/>
+                <context id="number" style-ref="number">
+                  <match>\b-?([1-9][0-9]*|0)(\.[0-9]+)?([eE][-+]?[0-9]+)?</match>
+                </context>
+                <context id="boolean" style-ref="boolean">
+                  <match>\b(true|false)</match>
+                </context>
+                <context id="null" style-ref="null">
+                  <match>\b(null)</match>
+                </context>
+                <context id="string" end-at-line-end="true" style-ref="string">
+                <start>"</start>
+                <end>"</end>
+                  <include>
+                    <context id="escaped-character" style-ref="escaped-character">
+                      <match>\\.</match>
+                    </context>
+                  </include>
+                </context>
+              </include>
+            </context>
+          </include>
+        </context>
+        <context id="object">
+          <start>\{</start>
+          <end>\{</end>
+          <include>
+            <context id="key" style-ref="key">
+              <match>"([^"]|\\.)+"[ \t]*:</match>
+            </context>
+            <context ref="value"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

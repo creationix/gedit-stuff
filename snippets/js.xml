@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<snippets language="js">
+  <snippet>
+    <text><![CDATA[function ${1:Name}() {
+}
+
+${1:Name}.prototype.${2:name} = function ${2:name}() {
+};
+]]></text>
+    <tag>con</tag>
+    <description>constructor</description>
+  </snippet>
+  <snippet>
+    <text><![CDATA[function ${1:name}($2) {
+  $0
+}]]></text>
+    <tag>fun</tag>
+    <description>function</description>
+  </snippet>
+  <snippet>
+    <text><![CDATA[var ${1:Scope} = (function ${1:Scope}() {
+  $0
+  return;
+}());
+]]></text>
+    <tag>mod</tag>
+    <description>Module</description>
+  </snippet>
+</snippets>
